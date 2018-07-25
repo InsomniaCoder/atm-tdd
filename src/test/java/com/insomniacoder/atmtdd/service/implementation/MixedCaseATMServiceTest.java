@@ -15,7 +15,6 @@ public class MixedCaseATMServiceTest {
     private ATMMoney atmMoney;
 
 
-    //success case for 20
     @Test
     public void withdraw1370BahtShouldDeductMultipleBankNotes() throws MoneyNotEnoughException {
         atmMoney = new ATMMoney();
@@ -26,7 +25,7 @@ public class MixedCaseATMServiceTest {
         atmMoney.setTwentyBankNote(6);
         defaultATMService = new DefaultATMService(atmMoney);
 
-        Assert.assertEquals(1970 , atmMoney.getTotalAmount());
+        Assert.assertEquals(1970, atmMoney.getTotalAmount());
 
         defaultATMService.withdraw(1370);
 
