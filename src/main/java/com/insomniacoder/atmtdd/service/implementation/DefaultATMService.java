@@ -28,10 +28,41 @@ public class DefaultATMService implements ATMService {
             }
         }
         if (amount >= 500) {
-
             while (amount >= 500) {
+                if(atmMoney.getFiveHundredBankNote() == 0){
+                    break;
+                }
                 atmMoney.setFiveHundredBankNote(atmMoney.getFiveHundredBankNote() - 1);
                 amount -= 500;
+            }
+        }
+        if (amount >= 100) {
+            while (amount >= 100) {
+                if(atmMoney.getHundredBankNote() == 0){
+                    break;
+                }
+                atmMoney.setHundredBankNote(atmMoney.getHundredBankNote() - 1);
+                amount -= 100;
+            }
+        }
+        if (amount >= 50) {
+
+            while (amount >= 50) {
+                if(atmMoney.getFiftyBankNote() == 0){
+                    break;
+                }
+                atmMoney.setFiftyBankNote(atmMoney.getFiftyBankNote() - 1);
+                amount -= 50;
+            }
+        }
+        if (amount >= 20) {
+
+            while (amount >= 20) {
+                if(atmMoney.getTwentyBankNote() == 0){
+                    break;
+                }
+                atmMoney.setTwentyBankNote(atmMoney.getTwentyBankNote() - 1);
+                amount -= 20;
             }
         }
 
