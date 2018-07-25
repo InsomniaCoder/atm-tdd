@@ -28,4 +28,46 @@ public class SubstituteCaseATMServiceTest {
         Assert.assertEquals(0, atmMoney.getTotalAmount());
         Assert.assertEquals(0, atmMoney.getFiveHundredBankNote());
     }
+    //substitute case for 500
+    @Test
+    public void withdraw500bahtFromMachineWith0FiveHundredAnd6HundredShouldSuccess() throws MoneyNotEnoughException {
+        atmMoney = new ATMMoney();
+        atmMoney.setHundredBankNote(6);
+        defaultATMService = new DefaultATMService(atmMoney);
+
+        Assert.assertEquals(600, atmMoney.getTotalAmount());
+
+        defaultATMService.withdraw(500);
+
+        Assert.assertEquals(100, atmMoney.getTotalAmount());
+        Assert.assertEquals(1, atmMoney.getHundredBankNote());
+    }
+    //substitute case for 100
+    @Test
+    public void withdraw150bahtFromMachineWith0HundredAnd4FiftyShouldSuccess() throws MoneyNotEnoughException {
+        atmMoney = new ATMMoney();
+        atmMoney.setFiftyBankNote(4);
+        defaultATMService = new DefaultATMService(atmMoney);
+
+        Assert.assertEquals(200, atmMoney.getTotalAmount());
+
+        defaultATMService.withdraw(150);
+
+        Assert.assertEquals(50, atmMoney.getTotalAmount());
+        Assert.assertEquals(1, atmMoney.getFiftyBankNote());
+    }
+    //substitute case for 50
+    @Test
+    public void withdraw100bahtFromMachineWith0fiftyAnd6TwentyShouldSuccess() throws MoneyNotEnoughException {
+        atmMoney = new ATMMoney();
+        atmMoney.setTwentyBankNote(6);
+        defaultATMService = new DefaultATMService(atmMoney);
+
+        Assert.assertEquals(120, atmMoney.getTotalAmount());
+
+        defaultATMService.withdraw(100);
+
+        Assert.assertEquals(20, atmMoney.getTotalAmount());
+        Assert.assertEquals(1, atmMoney.getTwentyBankNote());
+    }
 }
