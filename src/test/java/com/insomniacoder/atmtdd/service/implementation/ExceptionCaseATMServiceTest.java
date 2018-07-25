@@ -51,4 +51,34 @@ public class ExceptionCaseATMServiceTest {
 
         Assert.assertEquals(1, atmMoney.getTwentyBankNote());
     }
+
+    @Test(expected = MoneyNotEnoughException.class)
+    public void withdraw130BahtFromMachineShouldThrowMoneyNotEnoughExceptionAndNotReduceMoney() throws MoneyNotEnoughException {
+
+        atmMoney = new ATMMoney();
+        atmMoney.setHundredBankNote(1);
+        atmMoney.setFiftyBankNote(1);
+        defaultATMService = new DefaultATMService(atmMoney);
+
+        Assert.assertEquals(150, atmMoney.getTotalAmount());
+
+        defaultATMService.withdraw(130);
+
+        Assert.assertEquals(1, atmMoney.getHundredBankNote());
+        Assert.assertEquals(1, atmMoney.getFiftyBankNote());
+    }
+
+    @Test(expected = MoneyNotEnoughException.class)
+    public void withdraw179BahtFromMachineShouldThrowMoneyNotEnoughExceptionAndNotReduceMoney() throws MoneyNotEnoughException {
+
+        atmMoney = new ATMMoney();
+        atmMoney.setTwentyBankNote(10);
+        defaultATMService = new DefaultATMService(atmMoney);
+
+        Assert.assertEquals(200, atmMoney.getTotalAmount());
+
+        defaultATMService.withdraw(179);
+
+        Assert.assertEquals(10, atmMoney.getTwentyBankNote());
+    }
 }

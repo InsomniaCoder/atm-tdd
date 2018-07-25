@@ -16,6 +16,7 @@ public class DefaultATMService implements ATMService {
     public void withdraw(int amount) throws MoneyNotEnoughException {
 
         verifySufficientMoney(amount);
+        verifyOnlyFullAmountMoney(amount);
 
         int deductThousandBank = 0;
         int deductFiveHundredBank = 0;
@@ -70,12 +71,12 @@ public class DefaultATMService implements ATMService {
                 amount -= 20;
             }
         }
-        if(amount == 10) throw new MoneyNotEnoughException();
-        if(isNotDeducted(deductThousandBank,deductFiveHundredBank,deductHundredBank,deductFiftyBank,deductTwentyBank)){
-            //bank notes is not dispensable
-            throw new MoneyNotEnoughException();
-        }
+        if(amount != 0) throw new MoneyNotEnoughException();
         deductBankNotes(deductThousandBank,deductFiveHundredBank,deductHundredBank,deductFiftyBank,deductTwentyBank);
+    }
+
+    private void verifyOnlyFullAmountMoney(int amount) throws MoneyNotEnoughException {
+        if(amount % 10 != 0) throw new MoneyNotEnoughException();
     }
 
     private boolean isNotDeducted(int deductThousandBank, int deductFiveHundredBank, int deductHundredBank, int deductFiftyBank, int deductTwentyBank) {
