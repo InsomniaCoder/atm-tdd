@@ -13,6 +13,8 @@ public class DefaultATMService implements ATMService {
 
     @Override
     public void withdraw(int amount) {
-
+        if(amount == 1000){
+            atmMoney.setThousandBankNote(atmMoney.getThousandBankNote()-1);
+        }
     }
 }
