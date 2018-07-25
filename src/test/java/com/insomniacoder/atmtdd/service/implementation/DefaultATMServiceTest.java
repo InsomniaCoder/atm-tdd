@@ -1,6 +1,7 @@
 package com.insomniacoder.atmtdd.service.implementation;
 
 import com.insomniacoder.atmtdd.domain.ATMMoney;
+import com.insomniacoder.atmtdd.exception.MoneyNotEnoughException;
 import com.insomniacoder.atmtdd.service.ATMService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class DefaultATMServiceTest {
 
 
     @Test
-    public void withdraw1000bahtFromMachineWith1000TotalShouldBe0() {
+    public void withdraw1000bahtFromMachineWith1000TotalShouldBe0() throws MoneyNotEnoughException {
         atmMoney = new ATMMoney();
         atmMoney.setThousandBankNote(1);
         defaultATMService = new DefaultATMService(atmMoney);
@@ -29,7 +30,7 @@ public class DefaultATMServiceTest {
     }
 
     @Test
-    public void withdraw1000bahtFromMachineWith2000TotalShouldBe1000() {
+    public void withdraw1000bahtFromMachineWith2000TotalShouldBe1000() throws MoneyNotEnoughException {
         atmMoney = new ATMMoney();
         atmMoney.setThousandBankNote(2);
         defaultATMService = new DefaultATMService(atmMoney);
@@ -43,7 +44,7 @@ public class DefaultATMServiceTest {
     }
 
     @Test
-    public void withdraw3000bahtFromMachineWith7000TotalShouldBe4000() {
+    public void withdraw3000bahtFromMachineWith7000TotalShouldBe4000() throws MoneyNotEnoughException {
         atmMoney = new ATMMoney();
         atmMoney.setThousandBankNote(7);
         defaultATMService = new DefaultATMService(atmMoney);
@@ -57,7 +58,7 @@ public class DefaultATMServiceTest {
     }
 
     @Test
-    public void withdraw500bahtFromMachineWithTwo500TotalShouldBe500() {
+    public void withdraw500bahtFromMachineWithTwo500TotalShouldBe500() throws MoneyNotEnoughException {
         atmMoney = new ATMMoney();
         atmMoney.setFiveHundredBankNote(2);
         defaultATMService = new DefaultATMService(atmMoney);
@@ -68,6 +69,13 @@ public class DefaultATMServiceTest {
 
         Assert.assertEquals(500, atmMoney.getTotalAmount());
         Assert.assertEquals(1, atmMoney.getFiveHundredBankNote());
+    }
+
+    @Test(expected = MoneyNotEnoughException.class)
+    public void overWithdrawShouldThrowMoneyNotEnoughException() throws MoneyNotEnoughException {
+        atmMoney = new ATMMoney();
+        defaultATMService = new DefaultATMService(atmMoney);
+        defaultATMService.withdraw(500);
     }
 
 

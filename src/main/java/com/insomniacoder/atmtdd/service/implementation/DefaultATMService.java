@@ -1,6 +1,7 @@
 package com.insomniacoder.atmtdd.service.implementation;
 
 import com.insomniacoder.atmtdd.domain.ATMMoney;
+import com.insomniacoder.atmtdd.exception.MoneyNotEnoughException;
 import com.insomniacoder.atmtdd.service.ATMService;
 
 public class DefaultATMService implements ATMService {
@@ -12,20 +13,23 @@ public class DefaultATMService implements ATMService {
     }
 
     @Override
-    public void withdraw(int amount) {
+    public void withdraw(int amount) throws MoneyNotEnoughException {
 
-        if(amount >= 1000){
+        if (amount > atmMoney.getTotalAmount()) throw new MoneyNotEnoughException();
+
+
+        if (amount >= 1000) {
             while (amount >= 1000) {
                 atmMoney.setThousandBankNote(atmMoney.getThousandBankNote() - 1);
                 amount -= 1000;
             }
-        }else if(amount >= 500){
+        } else if (amount >= 500) {
+
             while (amount >= 500) {
                 atmMoney.setFiveHundredBankNote(atmMoney.getFiveHundredBankNote() - 1);
                 amount -= 500;
             }
         }
-
 
 
     }
