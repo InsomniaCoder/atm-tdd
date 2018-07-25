@@ -7,6 +7,10 @@ public class DefaultATMService implements ATMService {
 
     private ATMMoney atmMoney;
 
+    public DefaultATMService(ATMMoney atmMoney) {
+        this.atmMoney = atmMoney;
+    }
+
     @Override
     public void withdraw(int amount) {
 
