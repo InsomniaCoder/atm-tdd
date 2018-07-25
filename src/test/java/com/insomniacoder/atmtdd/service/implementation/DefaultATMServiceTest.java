@@ -15,7 +15,7 @@ public class DefaultATMServiceTest {
 
 
     @Test
-    public void withdraw1000bahtFromMachineWith1000TotalShouldBe0(){
+    public void withdraw1000bahtFromMachineWith1000TotalShouldBe0() {
         atmMoney = new ATMMoney();
         atmMoney.setThousandBankNote(1);
         defaultATMService = new DefaultATMService(atmMoney);
@@ -29,7 +29,7 @@ public class DefaultATMServiceTest {
     }
 
     @Test
-    public void withdraw1000bahtFromMachineWith2000TotalShouldBe1000(){
+    public void withdraw1000bahtFromMachineWith2000TotalShouldBe1000() {
         atmMoney = new ATMMoney();
         atmMoney.setThousandBankNote(2);
         defaultATMService = new DefaultATMService(atmMoney);
@@ -43,7 +43,7 @@ public class DefaultATMServiceTest {
     }
 
     @Test
-    public void withdraw3000bahtFromMachineWith7000TotalShouldBe4000(){
+    public void withdraw3000bahtFromMachineWith7000TotalShouldBe4000() {
         atmMoney = new ATMMoney();
         atmMoney.setThousandBankNote(7);
         defaultATMService = new DefaultATMService(atmMoney);
@@ -54,6 +54,20 @@ public class DefaultATMServiceTest {
 
         Assert.assertEquals(4000, atmMoney.getTotalAmount());
         Assert.assertEquals(4, atmMoney.getThousandBankNote());
+    }
+
+    @Test
+    public void withdraw500bahtFromMachineWithTwo500TotalShouldBe500() {
+        atmMoney = new ATMMoney();
+        atmMoney.setFiveHundredBankNote(2);
+        defaultATMService = new DefaultATMService(atmMoney);
+
+        Assert.assertEquals(1000, atmMoney.getTotalAmount());
+
+        defaultATMService.withdraw(500);
+
+        Assert.assertEquals(500, atmMoney.getTotalAmount());
+        Assert.assertEquals(1, atmMoney.getFiveHundredBankNote());
     }
 
 

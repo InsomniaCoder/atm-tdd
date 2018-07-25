@@ -13,9 +13,20 @@ public class DefaultATMService implements ATMService {
 
     @Override
     public void withdraw(int amount) {
-        while (amount >= 1000) {
-            atmMoney.setThousandBankNote(atmMoney.getThousandBankNote() - 1);
-            amount -= 1000;
+
+        if(amount >= 1000){
+            while (amount >= 1000) {
+                atmMoney.setThousandBankNote(atmMoney.getThousandBankNote() - 1);
+                amount -= 1000;
+            }
+        }else if(amount >= 500){
+            while (amount >= 500) {
+                atmMoney.setFiveHundredBankNote(atmMoney.getFiveHundredBankNote() - 1);
+                amount -= 500;
+            }
         }
+
+
+
     }
 }
