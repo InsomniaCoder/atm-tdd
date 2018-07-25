@@ -20,10 +20,14 @@ public class DefaultATMService implements ATMService {
 
         if (amount >= 1000) {
             while (amount >= 1000) {
+                if(atmMoney.getThousandBankNote() == 0){
+                    break;
+                }
                 atmMoney.setThousandBankNote(atmMoney.getThousandBankNote() - 1);
                 amount -= 1000;
             }
-        } else if (amount >= 500) {
+        }
+        if (amount >= 500) {
 
             while (amount >= 500) {
                 atmMoney.setFiveHundredBankNote(atmMoney.getFiveHundredBankNote() - 1);
