@@ -9,99 +9,33 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DefaultATMServiceTest {
+public class MixedCaseATMServiceTest {
 
     private ATMService defaultATMService;
     private ATMMoney atmMoney;
 
 
-    //success case for 1000
-    @Test
-    public void withdraw1000bahtFromMachineWith2000TotalShouldBe1000() throws MoneyNotEnoughException {
-        atmMoney = new ATMMoney();
-        atmMoney.setThousandBankNote(2);
-        defaultATMService = new DefaultATMService(atmMoney);
-
-        Assert.assertEquals(2000, atmMoney.getTotalAmount());
-
-        defaultATMService.withdraw(1000);
-
-        Assert.assertEquals(1000, atmMoney.getTotalAmount());
-        Assert.assertEquals(1, atmMoney.getThousandBankNote());
-    }
-
-    @Test
-    public void withdraw3000bahtFromMachineWith7000TotalShouldBe4000() throws MoneyNotEnoughException {
-        atmMoney = new ATMMoney();
-        atmMoney.setThousandBankNote(7);
-        defaultATMService = new DefaultATMService(atmMoney);
-
-        Assert.assertEquals(7000, atmMoney.getTotalAmount());
-
-        defaultATMService.withdraw(3000);
-
-        Assert.assertEquals(4000, atmMoney.getTotalAmount());
-        Assert.assertEquals(4, atmMoney.getThousandBankNote());
-    }
-
-    //success case for 500
-    @Test
-    public void withdraw500bahtFromMachineWithTwo500TotalShouldBe500() throws MoneyNotEnoughException {
-        atmMoney = new ATMMoney();
-        atmMoney.setFiveHundredBankNote(2);
-        defaultATMService = new DefaultATMService(atmMoney);
-
-        Assert.assertEquals(1000, atmMoney.getTotalAmount());
-
-        defaultATMService.withdraw(500);
-
-        Assert.assertEquals(500, atmMoney.getTotalAmount());
-        Assert.assertEquals(1, atmMoney.getFiveHundredBankNote());
-    }
-
-    //success case for 100
-    @Test
-    public void withdraw300bahtFromMachineWith7HundredBankTotalShouldSuccess() throws MoneyNotEnoughException {
-        atmMoney = new ATMMoney();
-        atmMoney.setHundredBankNote(7);
-        defaultATMService = new DefaultATMService(atmMoney);
-
-        Assert.assertEquals(700, atmMoney.getTotalAmount());
-
-        defaultATMService.withdraw(300);
-
-        Assert.assertEquals(400, atmMoney.getTotalAmount());
-        Assert.assertEquals(4, atmMoney.getHundredBankNote());
-    }
-
-    //success case for 50
-    @Test
-    public void withdraw150bahtFromMachineWith6fiftyBankTotalShouldSuccess() throws MoneyNotEnoughException {
-        atmMoney = new ATMMoney();
-        atmMoney.setFiftyBankNote(6);
-        defaultATMService = new DefaultATMService(atmMoney);
-
-        Assert.assertEquals(300, atmMoney.getTotalAmount());
-
-        defaultATMService.withdraw(150);
-
-        Assert.assertEquals(150, atmMoney.getTotalAmount());
-        Assert.assertEquals(3, atmMoney.getFiftyBankNote());
-    }
-
     //success case for 20
     @Test
-    public void withdraw60bahtFromMachineWith5TwentyBankTotalShouldSuccess() throws MoneyNotEnoughException {
+    public void withdraw1370BahtShouldDeductMultipleBankNotes() throws MoneyNotEnoughException {
         atmMoney = new ATMMoney();
-        atmMoney.setTwentyBankNote(5);
+        atmMoney.setThousandBankNote(0);
+        atmMoney.setFiveHundredBankNote(3);
+        atmMoney.setHundredBankNote(2);
+        atmMoney.setFiftyBankNote(3);
+        atmMoney.setTwentyBankNote(6);
         defaultATMService = new DefaultATMService(atmMoney);
 
-        Assert.assertEquals(100, atmMoney.getTotalAmount());
+        Assert.assertEquals(1970 , atmMoney.getTotalAmount());
 
-        defaultATMService.withdraw(60);
+        defaultATMService.withdraw(1370);
 
-        Assert.assertEquals(40, atmMoney.getTotalAmount());
-        Assert.assertEquals(2, atmMoney.getTwentyBankNote());
+        Assert.assertEquals(600, atmMoney.getTotalAmount());
+        Assert.assertEquals(0, atmMoney.getThousandBankNote());
+        Assert.assertEquals(1, atmMoney.getFiveHundredBankNote());
+        Assert.assertEquals(0, atmMoney.getHundredBankNote());
+        Assert.assertEquals(0, atmMoney.getFiftyBankNote());
+        Assert.assertEquals(5, atmMoney.getTwentyBankNote());
     }
 
 }
