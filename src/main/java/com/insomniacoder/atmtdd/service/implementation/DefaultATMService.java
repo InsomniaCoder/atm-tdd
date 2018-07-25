@@ -4,8 +4,9 @@ import com.insomniacoder.atmtdd.service.ATMService;
 
 public class DefaultATMService implements ATMService {
 
+
     @Override
-    public void withdraw() {
+    public void withdraw(int amount) {
 
     }
 }
